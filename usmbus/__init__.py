@@ -6,20 +6,18 @@ except ImportError:
 
 
 class SMBus(I2C):
-    """ Provides an 'SMBus' module for micropython which behaves similarly
-        to the linux version.
+    """ Provides an 'SMBus' module which supports some of the py-smbus
+        i2c methods, as well as being a subcleass of machine.I2C 
  
-	Use it like you would the machine.I2C class: 
-	
-	    import usmbus.SMBus 
-	
-	    device = SMBus(1, pins=('G15','G10'), baudrate=100000)
+	    Use it like you would the machine.I2C class: 
+    
+            import usmbus.SMBus 
 
-	    device.read_byte_data(addr, register)
-	    ... etc	
+            device = SMBus(1, pins=('G15','G10'), baudrate=100000)
+            device.read_byte_data(addr, register)
+        .   .. etc	
 	"""
-
-
+    
     def read_byte_data(self, addr, register):
         """ Read a single byte from register of device at addr
             Returns a single byte """
@@ -39,3 +37,21 @@ class SMBus(I2C):
         """ Write multiple bytes of data to register of device at addr
             Returns None """
         return self.writeto_mem(addr, register, data)
+    
+    # The follwing haven't been implemented, but could be.
+    def read_byte(**args, **kwargs):
+        """ Not yet implemented """
+        raise RuntimeError("Not yet implemented")
+
+    def write_byte(*args, **kwargs):
+        """ Not yet implemented """
+        raise RuntimeError("Not yet implemented")
+
+    def read_word_data(**args, **kwargs):
+        """ Not yet implemented """
+        raise RuntimeError("Not yet implemented")
+
+    def write_word_data(*args, **kwargs):
+        """ Not yet implemented """
+        raise RuntimeError("Not yet implemented")
+
