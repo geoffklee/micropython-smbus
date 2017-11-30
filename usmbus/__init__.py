@@ -7,7 +7,10 @@ except ImportError:
 
 class SMBus(I2C):
     """ Provides an 'SMBus' module which supports some of the py-smbus
-        i2c methods, as well as being a subcleass of machine.I2C 
+        i2c methods, as well as being a subclass of machine.I2C 
+
+        Hopefully this will allow you to run code that was targeted at
+        py-smbus unmodified on micropython.
  
 	    Use it like you would the machine.I2C class: 
     
@@ -15,7 +18,7 @@ class SMBus(I2C):
 
             device = SMBus(1, pins=('G15','G10'), baudrate=100000)
             device.read_byte_data(addr, register)
-        .   .. etc	
+            ... etc	
 	"""
     
     def read_byte_data(self, addr, register):
@@ -39,7 +42,7 @@ class SMBus(I2C):
         return self.writeto_mem(addr, register, data)
     
     # The follwing haven't been implemented, but could be.
-    def read_byte(**args, **kwargs):
+    def read_byte(*args, **kwargs):
         """ Not yet implemented """
         raise RuntimeError("Not yet implemented")
 
@@ -47,7 +50,7 @@ class SMBus(I2C):
         """ Not yet implemented """
         raise RuntimeError("Not yet implemented")
 
-    def read_word_data(**args, **kwargs):
+    def read_word_data(*args, **kwargs):
         """ Not yet implemented """
         raise RuntimeError("Not yet implemented")
 
