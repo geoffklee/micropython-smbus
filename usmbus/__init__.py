@@ -16,8 +16,8 @@ class SMBus(I2C):
     
             import usmbus.SMBus 
 
-            device = SMBus(1, pins=('G15','G10'), baudrate=100000)
-            device.read_byte_data(addr, register)
+            bus = SMBus(1, pins=('G15','G10'), baudrate=100000)
+            bus.read_byte_data(addr, register)
             ... etc	
 	"""
     
