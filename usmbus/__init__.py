@@ -49,14 +49,17 @@ class SMBus(I2C):
             data = bytes([data])
         return self.writeto_mem(addr, register, data)
 
-    # The follwing haven't been implemented, but could be.
-    def read_byte(self, *args, **kwargs):
-        """ Not yet implemented """
-        raise RuntimeError("Not yet implemented")
+    def read_byte(self, addr):
+        """ Read a single byte of data from the device at addr
+            Returns a bytes object with the data read """
+        return self.readfrom(addr, 1)
 
-    def write_byte(self, *args, **kwargs):
-        """ Not yet implemented """
-        raise RuntimeError("Not yet implemented")
+    def write_byte(self, addr, data):
+        """ Write a single byte of data to the device at addr
+            Returns None """
+        if isinstance(data, int):
+            data = bytes([data])
+        return self.writeto(addr, data)
 
     def read_word_data(self, *args, **kwargs):
         """ Not yet implemented """
