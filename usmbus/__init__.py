@@ -14,14 +14,14 @@ class SMBus(I2C):
         Hopefully this will allow you to run code that was targeted at
         py-smbus unmodified on micropython.
 
-	    Use it like you would the machine.I2C class:
+        Use it like you would the machine.I2C class:
 
             import usmbus.SMBus
 
-            bus = SMBus(1, pins=('G15','G10'), baudrate=100000)
+            bus = SMBus(id=0, scl=machine.Pin(15), sda=machine.Pin(10), freq=100000)
             bus.read_byte_data(addr, register)
             ... etc
-	"""
+    """
 
     def read_byte_data(self, addr, register):
         """ Read a single byte from register of device at addr
@@ -45,11 +45,13 @@ class SMBus(I2C):
         """ Write multiple bytes of data to register of device at addr
             Returns None """
         # writeto_mem() expects something it can treat as a buffer
-        if isinstance(data, int):
-            data = bytes([data])
+        if not isinstance(data, bytes):
+            if not isinstance(data, list):
+                data = [data]
+            data = bytes(data)
         return self.writeto_mem(addr, register, data)
 
-    # The follwing haven't been implemented, but could be.
+    # The following haven't been implemented, but could be.
     def read_byte(self, *args, **kwargs):
         """ Not yet implemented """
         raise RuntimeError("Not yet implemented")
@@ -65,4 +67,3 @@ class SMBus(I2C):
     def write_word_data(self, *args, **kwargs):
         """ Not yet implemented """
         raise RuntimeError("Not yet implemented")
-        
